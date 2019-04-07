@@ -16,7 +16,7 @@ app.use(
    })
 )
 
-app.use("/products", express.static(__dirname + "/public"))
+app.use("/", express.static(__dirname + "/public"))
 
 app.get("/vendor", async (req, res) => {
    let vendor_name = await Vendor.findAll()
