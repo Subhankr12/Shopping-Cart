@@ -32,11 +32,41 @@ const Product = db.define('product', {
 
 })
 
+const Cart = db.define('cart', {
+   username: {
+      type: Sequelize.STRING(100),
+      unique: true,
+
+   },
+   quantity: {
+      type: Sequelize.INTEGER
+   },
+
+   price: {
+      type: Sequelize.INTEGER
+   },
+   productName: {
+      type: Sequelize.STRING(100),
+      unique: true
+   },
+   productId: {
+      type: Sequelize.INTEGER,
+      references: {
+         model: 'Products',
+         key: 'id'
+      }
+   }
+})
+
 Vendor.hasMany(Product)
+Product.hasMany(Cart)
 Product.belongsTo(Vendor)
+
+Cart.belongsTo(Vendor)
 
 module.exports = {
    db,
    Vendor,
-   Product
+   Product,
+   Cart
 }

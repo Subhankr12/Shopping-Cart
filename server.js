@@ -1,27 +1,28 @@
-const express = require('express')
+const express = require("express")
 const {
    db,
    Vendor,
-   Product
-} = require('./db')
+   Product,
+   Cart
+} = require("./db")
 
 const app = express()
 
 app.use(express.json())
-app.use(express.urlencoded({
-   extended: true
-}))
+app.use(
+   express.urlencoded({
+      extended: true
+   })
+)
 
-app.use('/products', express.static(__dirname + '/public'))
+app.use("/products", express.static(__dirname + "/public"))
 
-
-
-app.get('/vendor', async (req, res) => {
+app.get("/vendor", async (req, res) => {
    let vendor_name = await Vendor.findAll()
    res.send(vendor_name)
 })
 
-app.post('/vendor', (req, res) => {
+app.post("/vendor", (req, res) => {
    Vendor.create({
       name: req.body.name
    })
@@ -30,16 +31,14 @@ app.post('/vendor', (req, res) => {
    })
 })
 
-
-
-app.get('/product', async (req, res) => {
+app.get("/product", async (req, res) => {
    let products = await Product.findAll({
       include: [Vendor]
    })
    res.send(products)
 })
 
-app.post('/product', (req, res) => {
+app.post("/product", (req, res) => {
    Product.create({
       name: req.body.name,
       price: req.body.price,
@@ -51,11 +50,51 @@ app.post('/product', (req, res) => {
    })
 })
 
+app.post("/addCart", async (req, res) => {
+
+   let check_cart = await Cart.findOne({
+      where: {
+         productName: req.body.name
+      }
+   })
+
+   if (check_cart) {
+      await Cart.update({
+         quantity: parseInt(check_cart.quantity) + 1
+      }, {
+         where: {
+            id: check_cart.id
+         }
+      })
+   } else {
+      let product = await Product.findOne({
+         where: {
+            name: req.body.name
+         }
+      })
+
+      await Cart.create({
+         productName: req.body.name,
+         productId: product.id,
+         quantity: 1,
+         price: product.price,
+         vendorId: product.vendorId
+      })
+   }
+})
+
+app.post("/displayCart", async (req, res) => {
+   let cart = await Cart.findAll({
+      include: [Vendor]
+   })
+
+   res.send(cart)
+})
+
 db.sync({
 
+}).then(() => {
+   app.listen(3444, () => {
+      console.log("Server Started")
    })
-   .then(() => {
-      app.listen(3444, () => {
-         console.log('Server Started')
-      })
-   })
+})
