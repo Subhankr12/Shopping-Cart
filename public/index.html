@@ -5,15 +5,26 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <script defer src="vendors.js"></script>
    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+   <script src="products.js"></script>
    <title>Document</title>
 </head>
 
 <body>
-   <input type="text" id="vendor_name">
-   <button id='add_vendor'>ADD</button>
-   <ul id="vendor_list"></ul>
+   <a href="vendors.html" target="_blank"><button>VENDORS</button></a>
+   <a href="shop.html" target="_blank"><button>SHOP</button></a>
+   <a href="cart.html" target="_blank"><button>CART</button></a>
+   <a href="index.html"><button>PRODUCT</button></a>
+   <br><br><br><br>
+   Product Name: <input type="text" id="product_name">
+   <br>
+   Price: <input type="text" id="price">
+   <br>
+   Quantity: <input type="text" id="quantity">
+   <br>
+   Vendor: <select id="vendors"></select>
+   <button id="add_product">ADD</button>
+   <ul id="product_list"></ul>
 </body>
 
 </html>

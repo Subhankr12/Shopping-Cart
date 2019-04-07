@@ -1,7 +1,6 @@
 {
   "name": "shopping-cart",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,5 +11,15 @@
     "express": "^4.16.4",
     "sequelize": "^5.2.12",
     "sqlite3": "^4.0.6"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Subhankr12/Shopping-Cart.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Subhankr12/Shopping-Cart/issues"
+  },
+  "homepage": "https://github.com/Subhankr12/Shopping-Cart#readme",
+  "description": ""
 }
