@@ -7,6 +7,7 @@ const {
 } = require("./db")
 
 const app = express()
+const PORT = process.env.PORT || 3444
 
 app.use(express.json())
 app.use(
@@ -94,7 +95,7 @@ app.post("/displayCart", async (req, res) => {
 db.sync({
 
 }).then(() => {
-   app.listen(3444, () => {
+   app.listen(PORT, () => {
       console.log("Server Started")
    })
 })
